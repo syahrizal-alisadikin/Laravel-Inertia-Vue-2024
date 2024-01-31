@@ -74,7 +74,7 @@
                                             <td>{{ customer.address }}</td>
                                             <td class="text-center">
                                                 <Link
-                                                    href="#"
+                                                    :href="`/apps/customers/${customer.id}/edit`"
                                                     v-if="
                                                         hasAnyPermission([
                                                             'customers.edit',
@@ -87,6 +87,9 @@
                                                     EDIT</Link
                                                 >
                                                 <button
+                                                    @click.prevent="
+                                                        destroy(customer.id)
+                                                    "
                                                     v-if="
                                                         hasAnyPermission([
                                                             'customers.delete',
@@ -100,7 +103,7 @@
                                             </td>
                                         </tr>
                                     </tbody>
-                                     <tbody v-else>
+                                    <tbody v-else>
                                         <tr>
                                             <td colspan="4" class="text-center">
                                                 <span class="text-muted"
@@ -110,10 +113,12 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <Pagination
-                                    :links="customers.links"
-                                    align="end"
-                                />
+                                <div v-if="customers.data.length > 0">
+                                    <Pagination
+                                        :links="customers.links"
+                                        align="end"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -138,7 +143,8 @@ import { ref } from "vue";
 
 //import inertia adapter
 import { Inertia } from "@inertiajs/inertia";
-
+//import sweet alert2
+import Swal from "sweetalert2";
 export default {
     //layout
     layout: LayoutApp,
@@ -169,10 +175,35 @@ export default {
                 q: search.value,
             });
         };
+        //method destroy
+        const destroy = (id) => {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Inertia.delete(`/apps/customers/${id}`);
+
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Customer deleted successfully.",
+                        icon: "success",
+                        timer: 2000,
+                        showConfirmButton: false,
+                    });
+                }
+            });
+        };
 
         return {
             search,
             handleSearch,
+            destroy,
         };
     },
 };

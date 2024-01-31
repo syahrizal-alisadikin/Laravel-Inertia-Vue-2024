@@ -1,6 +1,6 @@
 <template>
     <Head>
-        <title>Add New Product - Aplikasi Kasir</title>
+        <title>Add New Customer - Aplikasi Kasir</title>
     </Head>
     <main class="c-main">
         <div class="container-fluid">
@@ -12,210 +12,79 @@
                         >
                             <div class="card-header">
                                 <span class="font-weight-bold"
-                                    ><i class="fa fa-shopping-bag"></i> ADD NEW
-                                    PRODUCT</span
+                                    ><i class="fa fa-user-circle"></i> ADD NEW
+                                    CUSTOMER</span
                                 >
                             </div>
                             <div class="card-body">
                                 <form @submit.prevent="submit">
-                                    <div class="mb-3">
-                                        <input
-                                            class="form-control"
-                                            @input="
-                                                form.image =
-                                                    $event.target.files[0]
-                                            "
-                                            :class="{
-                                                'is-invalid': errors.image,
-                                            }"
-                                            type="file"
-                                        />
-                                    </div>
-                                    <div
-                                        v-if="errors.image"
-                                        class="alert alert-danger"
-                                    >
-                                        {{ errors.image }}
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="fw-bold"
-                                                    >Barcode</label
+                                                    >Full Name</label
                                                 >
                                                 <input
                                                     class="form-control"
-                                                    v-model="form.barcode"
+                                                    v-model="form.name"
                                                     :class="{
                                                         'is-invalid':
-                                                            errors.barcode,
+                                                            errors.name,
                                                     }"
                                                     type="text"
-                                                    placeholder="Barcode / Code Product"
+                                                    placeholder="Full Name"
                                                 />
                                             </div>
                                             <div
-                                                v-if="errors.barcode"
+                                                v-if="errors.name"
                                                 class="alert alert-danger"
                                             >
-                                                {{ errors.barcode }}
+                                                {{ errors.name }}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="fw-bold"
-                                                    >Category</label
-                                                >
-                                                <select
-                                                    class="form-select"
-                                                    :class="{
-                                                        'is-invalid':
-                                                            errors.category_id,
-                                                    }"
-                                                    v-model="form.category_id"
-                                                >
-                                                    <option
-                                                        v-for="(
-                                                            category, index
-                                                        ) in categories"
-                                                        :key="index"
-                                                        :value="category.id"
-                                                    >
-                                                        {{ category.name }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div
-                                                v-if="errors.category_id"
-                                                class="alert alert-danger"
-                                            >
-                                                {{ errors.category_id }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="fw-bold"
-                                                    >Title Product</label
+                                                    >No. Telp</label
                                                 >
                                                 <input
                                                     class="form-control"
-                                                    v-model="form.title"
+                                                    v-model="form.no_telp"
                                                     :class="{
                                                         'is-invalid':
-                                                            errors.title,
-                                                    }"
-                                                    type="text"
-                                                    placeholder="Title Product"
-                                                />
-                                            </div>
-                                            <div
-                                                v-if="errors.title"
-                                                class="alert alert-danger"
-                                            >
-                                                {{ errors.title }}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="fw-bold"
-                                                    >Stock</label
-                                                >
-                                                <input
-                                                    class="form-control"
-                                                    v-model="form.stock"
-                                                    :class="{
-                                                        'is-invalid':
-                                                            errors.stock,
+                                                            errors.no_telp,
                                                     }"
                                                     type="number"
-                                                    placeholder="Stock"
+                                                    placeholder="No. Telp"
                                                 />
                                             </div>
                                             <div
-                                                v-if="errors.stock"
+                                                v-if="errors.no_telp"
                                                 class="alert alert-danger"
                                             >
-                                                {{ errors.stock }}
+                                                {{ errors.no_telp }}
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="mb-3">
-                                        <label class="fw-bold"
-                                            >Description</label
-                                        >
+                                        <label class="fw-bold">Address</label>
                                         <textarea
                                             class="form-control"
-                                            v-model="form.description"
+                                            v-model="form.address"
                                             :class="{
-                                                'is-invalid':
-                                                    errors.description,
+                                                'is-invalid': errors.address,
                                             }"
                                             type="text"
                                             rows="4"
-                                            placeholder="Description"
+                                            placeholder="Address"
                                         ></textarea>
                                     </div>
                                     <div
-                                        v-if="errors.description"
+                                        v-if="errors.address"
                                         class="alert alert-danger"
                                     >
-                                        {{ errors.description }}
+                                        {{ errors.address }}
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="fw-bold"
-                                                    >Buy Price</label
-                                                >
-                                                <input
-                                                    class="form-control"
-                                                    v-model="form.buy_price"
-                                                    :class="{
-                                                        'is-invalid':
-                                                            errors.buy_price,
-                                                    }"
-                                                    type="number"
-                                                    placeholder="Buy Price"
-                                                />
-                                            </div>
-                                            <div
-                                                v-if="errors.buy_price"
-                                                class="alert alert-danger"
-                                            >
-                                                {{ errors.buy_price }}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label class="fw-bold"
-                                                    >Sell Price</label
-                                                >
-                                                <input
-                                                    class="form-control"
-                                                    v-model="form.sell_price"
-                                                    :class="{
-                                                        'is-invalid':
-                                                            errors.sell_price,
-                                                    }"
-                                                    type="number"
-                                                    placeholder="Sell Price"
-                                                />
-                                            </div>
-                                            <div
-                                                v-if="errors.sell_price"
-                                                class="alert alert-danger"
-                                            >
-                                                {{ errors.sell_price }}
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div class="row">
                                         <div class="col-12">
                                             <button
@@ -276,21 +145,15 @@ export default {
     //props
     props: {
         errors: Object,
-        categories: Array,
     },
 
     //composition API
     setup() {
         //define form with reactive
         const form = reactive({
-            image: "",
-            barcode: "",
-            category_id: "",
-            title: "",
-            description: "",
-            buy_price: "",
-            sell_price: "",
-            stock: "",
+            name: "",
+            no_telp: "",
+            address: "",
             isSubmitting: false,
         });
 
@@ -300,24 +163,19 @@ export default {
 
             //send data to server
             Inertia.post(
-                "/apps/products",
+                "/apps/customers",
                 {
                     //data
-                    image: form.image,
-                    barcode: form.barcode,
-                    category_id: form.category_id,
-                    title: form.title,
-                    description: form.description,
-                    buy_price: form.buy_price,
-                    sell_price: form.sell_price,
-                    stock: form.stock,
+                    name: form.name,
+                    no_telp: form.no_telp,
+                    address: form.address,
                 },
                 {
                     onSuccess: () => {
                         //show success alert
                         Swal.fire({
                             title: "Success!",
-                            text: "Product saved successfully.",
+                            text: "Customer saved successfully.",
                             icon: "success",
                             showConfirmButton: false,
                             timer: 2000,

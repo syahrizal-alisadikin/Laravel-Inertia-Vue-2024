@@ -65,5 +65,7 @@ class FortifyServiceProvider extends ServiceProvider
          * logout
          */
         $this->app->singleton(\Laravel\Fortify\Contracts\LogoutResponse::class, \App\Http\Responses\LogoutResponse::class);
+        // Login
+        $this->app->singleton(\Laravel\Fortify\Contracts\LoginResponse::class, \App\Http\Responses\LoginResponse::class);
     }
 }

@@ -45,15 +45,22 @@
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">
+                                    <span
+                                        class="input-group-text"
+                                        @click.prevent="
+                                            togglePasswordVisibility()
+                                        "
+                                    >
                                         <i class="fa fa-lock"></i>
                                     </span>
                                 </div>
                                 <input
-                                    class="form-control"
+                                    class="form-control password"
                                     v-model="form.password"
                                     :class="{ 'is-invalid': errors.password }"
-                                    type="password"
+                                    :type="
+                                        form.isPassword ? 'text' : 'password'
+                                    "
                                     placeholder="Password"
                                 />
                             </div>
@@ -126,6 +133,7 @@ export default {
             email: "",
             password: "",
             isSubmitting: false,
+            isPassword: false,
         });
 
         //submit method
@@ -149,10 +157,15 @@ export default {
             );
         };
 
+        const togglePasswordVisibility = () => {
+            form.isPassword = form.isPassword ? false : true;
+        };
+
         //return form state and submit method
         return {
             form,
             submit,
+            togglePasswordVisibility,
         };
     },
 };
