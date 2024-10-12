@@ -45,24 +45,90 @@
                                         >
                                         <br />
                                         <div
-                                            class="form-check form-check-inline"
+                                            class="col-md-12"
                                             v-for="(
-                                                permission, index
+                                                permissionGroup, key
                                             ) in permissions"
-                                            :key="index"
+                                            :key="key"
                                         >
-                                            <input
-                                                class="form-check-input"
-                                                type="checkbox"
-                                                v-model="form.permissions"
-                                                :value="permission.name"
-                                                :id="`check-${permission.id}`"
-                                            />
-                                            <label
-                                                class="form-check-label"
-                                                :for="`check-${permission.id}`"
-                                                >{{ permission.name }}</label
-                                            >
+                                            <div class="col-md mb-4 mb-md-2">
+                                                <div
+                                                    class="accordion mt-3"
+                                                    :id="key"
+                                                >
+                                                    <div
+                                                        class="card accordion-item"
+                                                    >
+                                                        <h2
+                                                            class="accordion-header"
+                                                            :id="
+                                                                'heading' + key
+                                                            "
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                class="accordion-button collapsed"
+                                                                data-bs-toggle="collapse"
+                                                                :data-bs-target="
+                                                                    '#accordion' +
+                                                                    key
+                                                                "
+                                                                aria-expanded="false"
+                                                                :aria-controls="
+                                                                    'accordion' +
+                                                                    key
+                                                                "
+                                                            >
+                                                                <b>{{ key }}</b>
+                                                            </button>
+                                                        </h2>
+
+                                                        <div
+                                                            :id="
+                                                                'accordion' +
+                                                                key
+                                                            "
+                                                            class="accordion-collapse collapse show"
+                                                            :data-bs-parent="
+                                                                '#' + key
+                                                            "
+                                                        >
+                                                            <div
+                                                                class="accordion-body"
+                                                            >
+                                                                <div
+                                                                    class="form-check form-check-inline"
+                                                                    v-for="(
+                                                                        permission,
+                                                                        index
+                                                                    ) in permissionGroup"
+                                                                    :key="index"
+                                                                >
+                                                                    <input
+                                                                        class="form-check-input"
+                                                                        type="checkbox"
+                                                                        v-model="
+                                                                            form.permissions
+                                                                        "
+                                                                        :value="
+                                                                            permission
+                                                                        "
+                                                                        :id="`check-${key}-${index}`"
+                                                                    />
+                                                                    <label
+                                                                        class="form-check-label"
+                                                                        :for="`check-${key}-${index}`"
+                                                                    >
+                                                                        {{
+                                                                            permission
+                                                                        }}
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 

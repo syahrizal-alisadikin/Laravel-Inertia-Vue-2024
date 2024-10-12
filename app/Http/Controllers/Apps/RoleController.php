@@ -81,8 +81,15 @@ class RoleController extends Controller
         $role = Role::with('permissions')->findOrFail($id);
 
         //get permission all
-        $permissions = Permission::all();
+        $data = Permission::orderBy('name')->pluck('name', 'id');
+        $collection = collect($data);
+        $permissions = $collection->groupBy(function ($item, $key) {
+            // Memecah string menjadi array kata-kata
+            $words = explode('.', $item);
 
+            // Mengambil kata pertama
+            return $words[0];
+        });
         //render with inertia
         return inertia('Apps/Roles/Edit', [
             'role'          => $role,
